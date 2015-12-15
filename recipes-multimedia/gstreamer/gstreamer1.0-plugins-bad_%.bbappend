@@ -5,4 +5,10 @@
 # in meta-oe) and requires whitelisting as it sets the commercial license flag.
 # Enabling mpg123 here is therefore an experimental change, to be reviewed...
 
-PACKAGECONFIG_append = " mpg123"
+
+PACKAGECONFIG[gles2]           = "--enable-gles2,--disable-gles2,virtual/libgles2"
+PACKAGECONFIG[egl]             = "--enable-egl,--disable-egl,virtual/egl"
+PACKAGECONFIG[gl]              = "--enable-gl,--disable-gl"
+PACKAGECONFIG[dispmanx]        = "--enable-dispmanx,--disable-dispmanx"
+
+PACKAGECONFIG_append = " mpg123 gles2 egl gl dispmanx"

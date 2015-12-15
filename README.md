@@ -26,6 +26,9 @@ How to use it:
 2. Add needed layer to bblayers.conf:
     - meta-raspberrypi
     - meta-metrological
+    - meta-openembedded/meta-oe
+    - meta-openembedded/meta-multimedia 
+
 3  Set MACHINE to "raspberrypi"/"raspberrypi2" in local.conf
 4. bitbake rpi-basic-ml-image
 5. dd to a SD card the generated sdimg file (use xzcat if rpi-sdimg.xz is used)

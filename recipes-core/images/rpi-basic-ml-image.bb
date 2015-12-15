@@ -12,4 +12,5 @@ IMAGE_FEATURES += " \
 
 IMAGE_INSTALL_append = "\
    packagegroup-ml-middleware \
+   packagegroup-ml-wpe \
 "
