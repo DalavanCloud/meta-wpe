@@ -9,7 +9,8 @@ PV = "1.0+gitr${SRCPV}"
 
 SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=webdriver"
 
-SRCREV = "98ea52d563fc1fa7d2a0ccd0cf1516d670e734ff"
+SRCREV = "d95f3545ee03761fde016aaae252f5c0dbef3ea1"
+
 
 S = "${WORKDIR}/git"
 
@@ -27,7 +28,7 @@ SNAPSHOT_rpi = "snapshot"
 MEMORYPROFILE ?= "128m"
 MEMORYPRESSURE ?= "databaseprocess:50m,networkprocess:100m,webprocess:300m,rpcprocess:50m"
 
-PACKAGECONFIG ??= "web-ui remotecontrol deviceinfo monitor ${PROVISIONING} tracecontrol webproxy dailserver webkitbrowser ${SNAPSHOT} webdriver"
+PACKAGECONFIG ??= "web-ui remotecontrol deviceinfo monitor ${PROVISIONING} webproxy dailserver webkitbrowser ${SNAPSHOT} webdriver"
 
 PACKAGECONFIG[browser]            = "-DWEBBRIDGE_PLUGIN_BROWSER=ON,-DWEBBRIDGE_PLUGIN_BROWSER=OFF,"
 PACKAGECONFIG[dailserver]         = "-DWEBBRIDGE_PLUGIN_DIALSERVER=ON,-DWEBBRIDGE_PLUGIN_DIALSERVER=OFF,"
