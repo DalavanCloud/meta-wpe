@@ -4,13 +4,15 @@ SECTION = "metrological"
 LICENSE = "CLOSED"
 #LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-DEPENDS = "zlib"
+DEPENDS ?= "zlib"
+DEPENDS_dawn = "zlib broadcom-refsw"
+DEPENDS_eos = "zlib broadcom-refsw"
 
 PV = "1.0+gitr${SRCPV}"
 
-SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=stable"
+SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh"
 
-SRCREV = "f428df3fe60a75f95133ef99a69d46ad04ce5265"
+SRCREV = "7185b7761236f9d5f4c21042284edef34f55192f"
 
 S = "${WORKDIR}/git"
 
@@ -22,7 +24,7 @@ CPPSDK_PLATFORM_dawn = "platform-dawn"
 CPPSDK_PLATFORM_eos = "platform-eos"
 CPPSDK_PLATFORM_rpi = "platform-rpi"
 
-PACKAGECONFIG ?= "${CPPSDK_PLATFORM} cryptalgo generics process tracing websocket rpc"
+PACKAGECONFIG ?= "${CPPSDK_PLATFORM} cryptalgo generics process tracing websocket rpc debug"
 
 PACKAGECONFIG[platform-dawn] = "-DCPPSDK_PLATFORM=DAWN,,"
 PACKAGECONFIG[platform-eos] = "-DCPPSDK_PLATFORM=EOS,,"
@@ -47,3 +49,4 @@ EXTRA_OECMAKE += " \
 CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
 
 TOOLCHAIN = "gcc"
+

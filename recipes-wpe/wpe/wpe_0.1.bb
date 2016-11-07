@@ -14,12 +14,14 @@ DEPENDS += " \
 
 PV = "0.1+git${SRCPV}"
 
-SRCREV ?= "9d85565525991083d3f95e3bb278cf7b8d4dee89"
-BASE_URI ?= "git://github.com/Metrological/WebKitForWayland.git;protocol=http;branch=master"
-SRC_URI = "${BASE_URI}"
+SRCREV ?= "622e996fc528212bd0453a076571261d28328d34"
 
+BASE_URI ?= "git://github.com/Metrological/WebKitForWayland.git;protocol=http"
+
+SRC_URI = "${BASE_URI}"
 SRC_URI += "file://0000-minimumAccelerated2dCanvasSize-to-275x256.patch \
             file://0001-WebKitMacros-Append-to-I-and-not-to-isystem.patch \
+            file://0004-nxclientdep-platformserver-support.patch \
 "
 
 S = "${WORKDIR}/git"
@@ -31,6 +33,7 @@ TOOLCHAIN = "gcc"
 WPE_BACKEND ?= "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'westeros', 'rpi', d)}"
 WPE_BACKEND_append = "${@bb.utils.contains("MACHINE_FEATURES", "vc4graphics", " wayland","", d)}"
 WPE_BACKEND_remove = "${@bb.utils.contains("MACHINE_FEATURES", "vc4graphics", "westeros","", d)}"
+WPE_BACKEND = "nexus"
 
 # The libprovision prebuilt libs currently support glibc ARM only.
 PROVISIONING ?= "${@bb.utils.contains("MACHINE_FEATURES", "vc4graphics", "", "provisioning", d)}"
@@ -44,13 +47,13 @@ WL_BUFFER_MANAGEMENT ?= ""
 WL_BUFFER_MANAGEMENT_nexus = "wl-nexus"
 WL_BUFFER_MANAGEMENT_drm = "wl-drm"
 
-PACKAGECONFIG ?= "2dcanvas deviceorientation fullscreenapi fetchapi gamepad geolocation indexeddb logs mediasource notifications ${PROVISIONING} sampling-profiler shadowdom subtlecrypto udev video webaudio ${WPE_BACKEND} ${WL_BUFFER_MANAGEMENT}"
+PACKAGECONFIG ?= "2dcanvas deviceorientation fullscreenapi encryptedmedia fetchapi gamepad geolocation indexeddb logs mediasource notifications ${PROVISIONING} sampling-profiler shadowdom subtlecrypto udev video webaudio ${WPE_BACKEND} ${WL_BUFFER_MANAGEMENT}"
 
 PACKAGECONFIG_remove_libc-musl = "sampling-profiler"
 
 # device specific configs
 PACKAGECONFIG[intelce] = "-DUSE_WPE_BACKEND_INTEL_CE=ON -DUSE_HOLE_PUNCH_GSTREAMER=ON -DUSE_KEY_INPUT_HANDLING_LINUX_INPUT=ON,,intelce-display"
-PACKAGECONFIG[nexus] = "-DUSE_WPE_BACKEND_BCM_NEXUS=ON -DUSE_HOLE_PUNCH_GSTREAMER=ON -DUSE_KEY_INPUT_HANDLING_LINUX_INPUT=ON,,broadcom-refsw"
+PACKAGECONFIG[nexus] = "-DUSE_WPE_BACKEND_BCM_NEXUS=ON -DUSE_HOLE_PUNCH_GSTREAMER=ON -DUSE_KEY_INPUT_HANDLING_LINUX_INPUT=OFF,,broadcom-refsw libxkbcommon"
 PACKAGECONFIG[rpi] = "-DUSE_WPE_BACKEND_BCM_RPI=ON -DUSE_KEY_INPUT_HANDLING_LINUX_INPUT=ON,,userland"
 PACKAGECONFIG[westeros] = "-DUSE_WPE_BACKEND_WESTEROS=ON -DUSE_WPE_BACKEND_BCM_RPI=OFF -DUSE_KEY_INPUT_HANDLING_LINUX_INPUT=OFF -DUSE_HOLE_PUNCH_GSTREAMER=ON -DUSE_WESTEROS_SINK=ON,,wayland westeros libxkbcommon"
 PACKAGECONFIG[stm] = "-DUSE_WPE_BACKEND_STM=ON -DUSE_KEY_INPUT_HANDLING_LINUX_INPUT=OFF -DUSE_HOLE_PUNCH_GSTREAMER=ON,,libxkbcommon"
@@ -91,6 +94,8 @@ EXTRA_OECMAKE += " \
     -DCMAKE_COLOR_MAKEFILE=OFF -DBUILD_SHARED_LIBS=ON -DPORT=WPE \
     -G Ninja \
 "
+
+TARGET_CFLAGS += "-lgmodule-2.0 -lglib-2.0 -ldl -lxkbcommon -linput -ludev -lv3ddriver -lnexus -lnxpl -lnxclient"
 
 # don't build debug
 FULL_OPTIMIZATION_remove = "-g"

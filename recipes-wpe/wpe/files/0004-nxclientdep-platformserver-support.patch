@@ -1,0 +1,96 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @bramoosterhuis
+ Unwatch 68
+  Star 2
+ Fork 9 Metrological/meta-metrological
+ Code  Pull requests 0  Projects 0  Pulse  Graphs
+Branch: stable Find file Copy pathmeta-metrological/recipes-wpe/wpe/files/0004-nxclientdep-platformserver-support.patch
+d716e04  12 hours ago
+@wouterlucas wouterlucas wpe: Use pre upstream merge WPE with additional patches for BRCM
+1 contributor
+RawBlameHistory     
+77 lines (69 sloc)  2.25 KB
+diff --git a/Source/ThirdParty/WPE-platform/src/bcm-nexus/CMakeLists.txt b/Source/ThirdParty/WPE-platform/src/bcm-nexus/CMakeLists.txt
+index 715fae1..6693a09 100644
+--- a/Source/ThirdParty/WPE-platform/src/bcm-nexus/CMakeLists.txt
++++ b/Source/ThirdParty/WPE-platform/src/bcm-nexus/CMakeLists.txt
+@@ -1,5 +1,15 @@
+ add_definitions(-DBACKEND_BCM_NEXUS=1)
+ 
++list(APPEND WPE_PLATFORM_LIBRARIES
++    nexus nxpl v3ddriver
++)
++
++ message("-- EGL_LIBRARIES_nxclient: ${EGL_LIBRARIES_nxclient},${EGL_LIBRARIES}.")
++    message("-- Found NXCLIENT: TRUE [egl.pc]")
++    add_definitions(-DBACKEND_BCM_NEXUS_NXCLIENT=1 -DBROADCOM_PLATFORM=1 -Wl,-z,defs)
++    list(APPEND WPE_PLATFORM_LIBRARIES nxclient)
++ message("-- WPE_PLATFORM_LIBRARIES: ${WPE_PLATFORM_LIBRARIES}.")
++
+ list(APPEND WPE_PLATFORM_SOURCES
+     src/bcm-nexus/renderer-backend.cpp
+     src/bcm-nexus/view-backend.cpp
+diff --git a/Source/ThirdParty/WPE-platform/src/bcm-nexus/renderer-backend.cpp b/Source/ThirdParty/WPE-platform/src/bcm-nexus/renderer-backend.cpp
+index 2af4328..08456ce 100644
+--- a/Source/ThirdParty/WPE-platform/src/bcm-nexus/renderer-backend.cpp
++++ b/Source/ThirdParty/WPE-platform/src/bcm-nexus/renderer-backend.cpp
+@@ -36,7 +36,10 @@
+ #include <refsw/nexus_display.h>
+ #include <refsw/nexus_core_utils.h>
+ #include <refsw/default_nexus.h>
++
++#ifdef BACKEND_BCM_NEXUS_NXCLIENT
+ #include <refsw/nxclient.h>
++#endif
+ 
+ namespace BCMNexus {
+ 
+@@ -45,13 +48,18 @@ struct Backend {
+     ~Backend();
+ 
+     NXPL_PlatformHandle nxplHandle;
++
++#ifdef BACKEND_BCM_NEXUS_NXCLIENT
+     NxClient_AllocResults allocResults;
++#endif
++
+     NEXUS_SurfaceClientHandle client;
+ };
+ 
+ Backend::Backend()
+ {
+     NEXUS_DisplayHandle displayHandle(nullptr);
++#ifdef BACKEND_BCM_NEXUS_NXCLIENT
+     NxClient_AllocSettings allocSettings;
+     NxClient_JoinSettings joinSettings;
+     NxClient_GetDefaultJoinSettings(&joinSettings);
+@@ -65,6 +73,10 @@ Backend::Backend()
+     allocSettings.surfaceClient = 1;
+     rc = NxClient_Alloc(&allocSettings, &allocResults);
+     BDBG_ASSERT(!rc);
++#else
++    NEXUS_Error rc = NEXUS_Platform_Join();
++    BDBG_ASSERT(!rc);
++#endif
+ 
+     NXPL_RegisterNexusDisplayPlatform(&nxplHandle, displayHandle);
+ }
+@@ -72,8 +84,10 @@ Backend::Backend()
+ Backend::~Backend()
+ {
+     NXPL_UnregisterNexusDisplayPlatform(nxplHandle);
++#ifdef BACKEND_BCM_NEXUS_NXCLIENT
+     NxClient_Free(&allocResults);
+     NxClient_Uninit();
++#endif
+ }
+ 
+ struct EGLTarget : public IPC::Client::Handler {
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
+

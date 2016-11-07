@@ -19,10 +19,10 @@ BASEPV = "${@ d.getVar('SRCPV', True).replace('AUTOINC+', '')}"
 
 # ----------------------------------------------------------------------------
 
-SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=stable"
+SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh"
 SRC_URI += "file://webbridge-init"
 
-SRCREV = "61bc55fc4df998f43642b6504a467c394e73cfe4"
+SRCREV = "8255141fa8106032c674edf031f48bffb7627960"
 
 S = "${WORKDIR}/git"
 
@@ -32,6 +32,8 @@ inherit cmake pkgconfig update-rc.d
 
 PROVISIONING ?= "provisioning"
 PROVISIONING_libc-musl = ""
+PROVISIONING_mipsel = ""
+PROVISIONING_x86 = ""
 
 SNAPSHOT ?= ""
 SNAPSHOT_rpi = "snapshot"
@@ -42,7 +44,7 @@ WEBKITBROWSER_MEMORYPRESSURE ?= "databaseprocess:50m,networkprocess:100m,webproc
 WEBKITBROWSER_MEMORYPROFILE ?= "128m"
 WEBKITBROWSER_STARTURL ?= "about:blank"
 
-PACKAGECONFIG ?= "dailserver deviceinfo monitor ${PROVISIONING} netflix remotecontrol ${SNAPSHOT} tracecontrol webdriver webkitbrowser webproxy web-ui"
+PACKAGECONFIG ?= "dailserver deviceinfo monitor ${PROVISIONING} remotecontrol ${SNAPSHOT} tracecontrol webdriver webkitbrowser webproxy web-ui webserver debug"
 
 PACKAGECONFIG[browser]            = "-DWEBBRIDGE_PLUGIN_BROWSER=ON,-DWEBBRIDGE_PLUGIN_BROWSER=OFF,"
 PACKAGECONFIG[dailserver]         = "-DWEBBRIDGE_PLUGIN_DIALSERVER=ON,-DWEBBRIDGE_PLUGIN_DIALSERVER=OFF,"
@@ -64,6 +66,7 @@ PACKAGECONFIG[webkitbrowser]      = "-DWEBBRIDGE_PLUGIN_WEBKITBROWSER=ON \
     -DWEBBRIDGE_PLUGIN_WEBKITBROWSER_STARTURL="${WEBKITBROWSER_STARTURL}" \
     ,-DWEBBRIDGE_PLUGIN_WEBKITBROWSER=OFF,wpe"
 PACKAGECONFIG[webproxy]           = "-DWEBBRIDGE_PLUGIN_WEBPROXY=ON,-DWEBBRIDGE_PLUGIN_WEBPROXY=OFF,"
+PACKAGECONFIG[webserver]          = "-DWEBBRIDGE_PLUGIN_WEBSERVER=ON,-DWEBBRIDGE_PLUGIN_WEBSERVER=OFF,"
 PACKAGECONFIG[web-ui]             = "-DWEBBRIDGE_WEB_UI=ON,-DWEBBRIDGE_WEB_UI=OFF,"
 
 EXTRA_OECMAKE += "\
