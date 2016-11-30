@@ -8,9 +8,9 @@ DEPENDS = "zlib"
 
 PV = "1.0+gitr${SRCPV}"
 
-SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=stable"
+SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=master"
 
-SRCREV = "0efa6f4268f11541343727149310877b7f8a7df0"
+SRCREV = "684cddc94af6bb44ffb8eeb4382ec6517eec8ea2"
 
 S = "${WORKDIR}/git"
 
