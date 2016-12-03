@@ -5,17 +5,14 @@ mkdir ./tmp
 cd tmp
 
 echo "Fetching buildroot make files"
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/wpe/wpe.mk
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/wpe-launcher/wpe-launcher.mk
-wget -q https://raw.githubusercontent.com/Metrological/buildroot-wpe/master/package/cppsdk/cppsdk.mk
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/libprovision/libprovision.mk
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/webbridge/webbridge.mk
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/netflix/netflix.mk
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/icudata/icudata.mk
-wget -q https://github.com/Metrological/buildroot-wpe/raw/master/package/webdriver/webdriver.mk
-
-# QT5 webkit
-wget -q https://raw.githubusercontent.com/Metrological/buildroot/master/package/qt5/qt5webkit/qt5webkit.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/wpe/wpe.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/wpe-launcher/wpe-launcher.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/cppsdk/cppsdk.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/libprovision/libprovision.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/webbridge/webbridge.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/netflix/netflix.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/icudata/icudata.mk
+wget -q https://github.com/Metrological/buildroot-wpe/raw/next/package/webdriver/webdriver.mk
 
 cd ..
 
@@ -28,8 +25,6 @@ python ./tools/check_srcrevs.py -i ./tmp/webbridge.mk -o ./recipes-metrological/
 python ./tools/check_srcrevs.py -i ./tmp/netflix.mk -o ./recipes-netflix/netflix/netflix_git.bb
 python ./tools/check_srcrevs.py -i ./tmp/icudata.mk  -o ./recipes-support/icu/icu_56%.bbappend
 python ./tools/check_srcrevs.py -i ./tmp/webdriver.mk  -o ./recipes-metrological/webdriver/webdriver-wpe_git.bb
-
-python ./tools/check_srcrevs.py -i ./tmp/qt5webkit.mk  -o ./recipes-qt/qt5/qtwebkit_metro.bb
 
 echo "Cleaning up tmp"
 rm -r ./tmp
