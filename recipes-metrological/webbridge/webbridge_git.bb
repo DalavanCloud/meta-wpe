@@ -10,9 +10,9 @@ DEPENDS = "cppsdk zlib"
 
 # Type 0 = Production, 1 = Release, 2 = Debug
 WEBBRIDGE_BUILD_TYPE = "0"
-WEBBRIDGE_BUILD_MAJOR = "1"
-WEBBRIDGE_BUILD_MINOR = "6"
-WEBBRIDGE_BUILD_REVISION = "4"
+WEBBRIDGE_BUILD_MAJOR = "2"
+WEBBRIDGE_BUILD_MINOR = "0"
+WEBBRIDGE_BUILD_REVISION = "0"
 
 PV = "${WEBBRIDGE_BUILD_MAJOR}.${WEBBRIDGE_BUILD_MINOR}.${WEBBRIDGE_BUILD_REVISION}+${SRCPV}"
 BASEPV = "${@ d.getVar('SRCPV', True).replace('AUTOINC+', '')}"
@@ -25,7 +25,7 @@ SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=m
            file://webbridge.service \
 "
 
-SRCREV = "5b18a8fede9bdf803495dce83c679efdbd4e974d"
+SRCREV = "f2ccaa0b8e70164ca372e42aaaba71848305f2df"
 
 S = "${WORKDIR}/git"
 
