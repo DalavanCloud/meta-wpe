@@ -13,8 +13,8 @@ RDEPENDS_packagegroup-ml-wpe = "\
     wpebackend-rdk \
     wpewebkit-web-inspector-plugin \
     wpelauncher \
-    cppsdk \
-    webbridge \
+    WPEFramework \
+    WPEFramework-Open \
 "
 
 # Additional OSS packages etc, which are only needed for WPE based images.

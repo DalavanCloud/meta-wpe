@@ -51,6 +51,8 @@ EXTRA_OECMAKE += " \
     -DINSTALL_HEADERS_TO_TARGET=ON \
 "
 
+EXTRA_OEMAKE = "V=1 VERBOSE=1"
+
 CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
 
 TOOLCHAIN = "gcc"

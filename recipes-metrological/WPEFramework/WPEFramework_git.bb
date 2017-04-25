@@ -11,7 +11,7 @@ PV = "1.0+gitr${SRCPV}"
 
 SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=WPEFramework-Yocto"
 
-SRCREV = "7650d15f7d956cec6e4a99e4ec62ce5a743f78d7"
+SRCREV = "f6f4feb0fa29fcb2ac5a7c0a4d8b0f22e371071b"
 
 S = "${WORKDIR}/git"
 
@@ -50,6 +50,10 @@ EXTRA_OECMAKE += " \
     -DCMAKE_BUILD_TYPE=Debug \
 "
 
+EXTRA_OEMAKE = "V=1 VERBOSE=1"
+
 CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
 
 TOOLCHAIN = "gcc"
+
+FILES_${PN} += "/usr/lib/wpeframework/proxystubs/libWPEFrameworkInterfaces.so /usr/lib/wpeframework/proxystubs/libWPEFrameworkProxyStubs.so"
