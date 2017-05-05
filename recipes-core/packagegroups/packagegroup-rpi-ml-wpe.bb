@@ -15,6 +15,7 @@ RDEPENDS_packagegroup-ml-wpe = "\
     wpelauncher \
     WPEFramework \
     WPEFramework-Open \
+    WPEFramework-Provisioning \
 "
 
 # Additional OSS packages etc, which are only needed for WPE based images.

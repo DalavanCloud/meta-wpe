@@ -10,14 +10,11 @@ DEPENDS_append_libc-musl = " libexecinfo"
 PV = "1.0+gitr${SRCPV}"
 
 SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=WPEFramework-Yocto"
-
 SRCREV = "f6f4feb0fa29fcb2ac5a7c0a4d8b0f22e371071b"
 
 S = "${WORKDIR}/git"
 
 inherit cmake pkgconfig
-
-CXXFLAGS += "-D_GLIBCXX_USE_CXX11_ABI=0"
 
 WPEFRAMEWORK_PLATFORM ?= "platform-pc"
 WPEFRAMEWORK_PLATFORM_mipsel = "platform-dawn"
@@ -46,14 +43,16 @@ PACKAGECONFIG[platform-xi5] += "-DWPEFRAMEWORK_PLATFORM=XI5,,broadcom-refsw"
 #PACKAGECONFIG[process] = "-DCPPSDK_PROCESS=ON,-DCPPSDK_PROCESS=OFF,"
 
 EXTRA_OECMAKE += " \
+    -DWPEFRAMEWORK_TEST_APPS=ON -DWPEFRAMEWORK_TEST_LOADER=ON \
     -DINSTALL_HEADERS_TO_TARGET=ON \
     -DCMAKE_BUILD_TYPE=Debug \
 "
 
-EXTRA_OEMAKE = "V=1 VERBOSE=1"
-
-CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
+#CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
 
 TOOLCHAIN = "gcc"
 
-FILES_${PN} += "/usr/lib/wpeframework/proxystubs/libWPEFrameworkInterfaces.so /usr/lib/wpeframework/proxystubs/libWPEFrameworkProxyStubs.so"
+FILES_${PN} += "/usr/lib/wpeframework/proxystubs/libWPEFrameworkInterfaces.so \
+                /usr/lib/wpeframework/proxystubs/libWPEFrameworkProxyStubs.so \
+"
+

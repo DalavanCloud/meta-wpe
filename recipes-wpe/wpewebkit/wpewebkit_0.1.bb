@@ -15,10 +15,8 @@ DEPENDS += " \
 
 PV = "0.1+git${SRCPV}"
 
-#SRCREV ?= "49839739880a661635ed65cecc2a0591cdf6fa87"
-#BASE_URI ?= "git://github.com/WebPlatformForEmbedded/WPEWebKit.git;protocol=http;branch=master"
-SRCREV ?= "068fc4a638b19bd5d9e9ffe04688a178a09e991a"
-BASE_URI ?= "git://github.com/wouterlucas/WPEWebKit.git;protocol=http;branch=master"
+SRCREV ?= "865604128ae85a5ae411b4207c8e2ef1660a99fa"
+BASE_URI ?= "git://github.com/WebPlatformForEmbedded/WPEWebKit.git;protocol=http;branch=master"
 
 SRC_URI = "${BASE_URI}"
 
@@ -29,7 +27,6 @@ S = "${WORKDIR}/git"
 inherit cmake pkgconfig perlnative pythonnative
 
 TOOLCHAIN = "gcc"
-
 
 WPE_PLATFORM = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'westeros', '', d)}"
 WPE_PLATFORM_nexus = "nexus"

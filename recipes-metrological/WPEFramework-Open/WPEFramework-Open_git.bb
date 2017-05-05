@@ -5,20 +5,17 @@ SECTION = "metrological"
 LICENSE = "CLOSED"
 #LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-DEPENDS = "WPEFramework libpng wpewebkit"
+DEPENDS = "WPEFramework libpng wpewebkit glib-2.0"
 #DEPENDS_append_libc-musl = " libexecinfo"
 
 PV = "1.0+gitr${SRCPV}"
 
 SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=WPEFramework-Open-Plugins-Yocto"
-
 SRCREV = "2777c0ed3ce18ae245bcf797cda8dfde2bb3fdbb"
 
 S = "${WORKDIR}/git"
 
 inherit cmake pkgconfig
-
-#CXXFLAGS += "-D_GLIBCXX_USE_CXX11_ABI=0"
 
 #WPEFRAMEWORK_PLATFORM ?= "platform-pc"
 #WPEFRAMEWORK_PLATFORM_mipsel = "platform-dawn"
@@ -48,38 +45,21 @@ inherit cmake pkgconfig
 
 EXTRA_OECMAKE += " \
     -DCMAKE_BUILD_TYPE=Debug \
-    -DWPEFRAMEWORK_PLUGIN_COMMANDER=ON \
     -DWPEFRAMEWORK_PLUGIN_DEVICEINFO=ON \
-    -DWPEFRAMEWORK_PLUGIN_LOCATIONSYNC=ON \
-    -DWPEFRAMEWORK_PLUGIN_MONITOR=ON \
     -DWPEFRAMEWORK_PLUGIN_REMOTECONTROL=ON \
-    -DWPEFRAMEWORK_PLUGIN_SNAPSHOT=ON \
-    -DWPEFRAMEWORK_PLUGIN_TIMESYNC=ON \
     -DWPEFRAMEWORK_PLUGIN_TRACECONTROL=ON \
     -DWPEFRAMEWORK_PLUGIN_WEBKITBROWSER=ON \
-    -DWPEFRAMEWORK_PLUGIN_WEBPROXY=ON \
-    -DWPEFRAMEWORK_PLUGIN_WEBSERVER=ON \
-    -DWPEFRAMEWORK_PLUGIN_WEBSHELL=ON \
 "
 
 #CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
 
 TOOLCHAIN = "gcc"
 
-FILES_${PN} += "/usr/lib/wpeframework/plugins/libWPEFrameworkCommander.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkDeviceInfo.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkLocationSync.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkMonitor.so \
+FILES_${PN} += "/usr/lib/wpeframework/plugins/libWPEFrameworkDeviceInfo.so \
                 /usr/lib/wpeframework/plugins/libWPEFrameworkRemoteControl.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkSnapshot.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkTimeSync.so \
                 /usr/lib/wpeframework/plugins/libWPEFrameworkTraceControl.so \
                 /usr/lib/wpeframework/plugins/libWPEFrameworkWebKitBrowser.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkWebProxy.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkWebServer.so \
-                /usr/lib/wpeframework/plugins/libWPEFrameworkWebShell.so \
                 /usr/share/WPEFramework/WebKitBrowser/libWPEInjectedBundle.so \
                 /usr/share/WPEFramework/RemoteControl/keymap.json \
 "
-
 
