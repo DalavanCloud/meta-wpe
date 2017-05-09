@@ -10,8 +10,8 @@ DEPENDS = "WPEFramework libpng wpewebkit glib-2.0"
 
 PV = "1.0+gitr${SRCPV}"
 
-SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=WPEFramework-Open-Plugins-Yocto"
-SRCREV = "2777c0ed3ce18ae245bcf797cda8dfde2bb3fdbb"
+SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=WPEFramework-Open-Plugins"
+SRCREV = "6323d7936f01d6835fc7334c18d2790d1d014f10"
 
 S = "${WORKDIR}/git"
 

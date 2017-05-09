@@ -9,8 +9,8 @@ DEPENDS = "WPEFramework libprovision"
 
 PV = "1.0+gitr${SRCPV}"
 
-SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=WPEFramework-Provisioning-Yocto"
-SRCREV = "5c319ea71e323d6aad54bc029aafeee56da2cf7f"
+SRC_URI = "git://git@github.com/Metrological/webbridge.git;protocol=ssh;branch=WPEFramework-Provisioning"
+SRCREV = "06973c5fe9c8e8d85297f1603252c2d1ef65bd75"
 
 S = "${WORKDIR}/git"
 

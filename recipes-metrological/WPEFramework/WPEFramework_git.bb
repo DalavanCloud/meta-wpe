@@ -9,8 +9,8 @@ DEPENDS_append_libc-musl = " libexecinfo"
 
 PV = "1.0+gitr${SRCPV}"
 
-SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=WPEFramework-Yocto"
-SRCREV = "f6f4feb0fa29fcb2ac5a7c0a4d8b0f22e371071b"
+SRC_URI = "git://git@github.com/Metrological/cppsdk.git;protocol=ssh;branch=WPEFramework"
+SRCREV = "b325aa163dfe86c02a75deb86d4f30875db44d7a"
 
 S = "${WORKDIR}/git"
 
@@ -46,6 +46,7 @@ EXTRA_OECMAKE += " \
     -DWPEFRAMEWORK_TEST_APPS=ON -DWPEFRAMEWORK_TEST_LOADER=ON \
     -DINSTALL_HEADERS_TO_TARGET=ON \
     -DCMAKE_BUILD_TYPE=Debug \
+    -DWPEFRAMEWORK_VIRTUALINPUT=ON \
 "
 
 #CXXFLAGS_append_rpi = " -I${STAGING_INCDIR}/interface/vmcs_host/linux"
